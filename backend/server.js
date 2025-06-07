@@ -16,7 +16,8 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:5173',  // Must match frontend origin exactly
+  origin: ['http://localhost:5173',
+  'https://shopify-omega-seven.vercel.app'],  // Must match frontend origin exactly
   credentials: true                 // Allow cookies, authorization headers, etc.
 }));
 

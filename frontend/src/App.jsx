@@ -4,6 +4,7 @@ import Userpath from './pages/LoginSignup';
 import Home from './pages/Home';
 import ProductDisplay from './pages/ProductDisplay';
 import PrivateRoute from './components/PrivateRoute';
+import Cart from './pages/Cart';
 
 
 const App = () => {
@@ -24,6 +25,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <ProductDisplay />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <PrivateRoute>
+                <Cart />
               </PrivateRoute>
             }
           />

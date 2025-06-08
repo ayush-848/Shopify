@@ -61,6 +61,53 @@ const UserApiServices = {
     const response = await axios.put(`${API_BASE_URL}/quantity/${pid}`, { quantity });
     return response.data;
   },
+
+    // Cart API calls
+  getCart: async (userId) => {
+    const response = await axios.get(`${API_BASE_URL}/cart/${userId}`);
+    return response.data;
+  },
+
+  addToCart: async ({ userId, productId, name, quantity }) => {
+    
+    const response = await axios.post(`${API_BASE_URL}/cart/add`, {
+      userId,
+      productId,
+      name,
+      quantity,
+    });
+    return response.data;
+  },
+
+  removeFromCart: async ({ userId, pid }) => {
+    const response = await axios.post(`${API_BASE_URL}/cart/remove`, {
+      userId,
+      pid,
+    });
+    return response.data;
+  },
+
+  clearCart: async (userId) => {
+    const response = await axios.delete(`${API_BASE_URL}/cart/clear/${userId}`);
+    return response.data;
+  },
+
+  updateCartItem: async ({ userId, productId, quantity }) => {
+    const response = await axios.put(`${API_BASE_URL}/cart/update`, {
+      userId,
+      productId,
+      quantity,
+    });
+    return response.data;
+  },
+
+  checkout: async (userId) => {
+    const response = await axios.post(`${API_BASE_URL}/checkout`, { userId });
+    return response.data;
+  },
+
 };
+
+
 
 export default UserApiServices;

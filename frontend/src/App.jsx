@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import ProductDisplay from "./pages/ProductDisplay";
 import PrivateRoute from "./components/PrivateRoute";
 import Cart from "./pages/Cart";
+import History from "./pages/History";
 
 const App = () => {
   return (
@@ -35,6 +36,13 @@ const App = () => {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/history"
+            element={
+              <PrivateRoute>
+                <History />
+              </PrivateRoute>
+            }/>
 
           <Route path="/user" element={<Userpath />} />
         </Routes>

@@ -79,11 +79,10 @@ function ProductCard({ product, showQty, qty, onAddToCart, onIncrement, onDecrem
 // Main Products Grid
 function Products({ products }) {
   const { user } = useContext(AuthContext);
-  const USER_ID = user ? user._id : null;
+  const USER_ID = user._id ;
   const navigate = useNavigate();
 
   const [selection, setSelection] = useState({});
-  const { cart, setCart, fetchCart } = useCart(); // Added fetchCart here
   
   // Handlers for each card
   const handleAddToCart = (id) => {
@@ -125,7 +124,7 @@ function Products({ products }) {
   const totalQty = selectedItems.reduce((sum, item) => sum + item.qty, 0);
 
   const handleFabClick = async () => {
-    if (!USER_ID) {
+    if  (!USER_ID) {
       alert("Please log in to add to cart.");
       return;
     }

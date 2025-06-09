@@ -153,6 +153,13 @@ const UserApiServices = {
     );
     return response.data;
   },
+
+  getOrders: async () => {
+    const response = await axios.get(`${API_BASE_URL}/orders`, {
+      withCredentials: true,
+    });
+    return response.data;
+  },
 };
 
 export default UserApiServices;

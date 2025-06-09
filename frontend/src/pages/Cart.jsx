@@ -20,6 +20,7 @@ function Cart() {
       fetchCart();
     }
   }, [user, fetchCart]);
+  
 
   // Initialize quantities when cart changes
   useEffect(() => {
@@ -35,13 +36,6 @@ function Cart() {
   // Check if any quantities have pending changes
   const hasPendingChanges = () => {
     return cartArray.some(item => 
-      quantities[item.productId] !== item.quantity
-    );
-  };
-
-  // Get items with pending changes
-  const getPendingItems = () => {
-    return cartArray.filter(item => 
       quantities[item.productId] !== item.quantity
     );
   };

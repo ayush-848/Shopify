@@ -8,7 +8,6 @@ function Navbar({}) {
   const { logout, user } = useAuth();
   const { cart } = useCart();
   let totalQuantity = 0;
-  console.log("Cart items in Navbar:", cart);
   cart.forEach((item) => {
     totalQuantity += item.quantity;
 });

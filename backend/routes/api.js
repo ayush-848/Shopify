@@ -18,7 +18,8 @@ const {
     removeFromCart,
     clearCart,
     updateCartItem,
-    checkout
+    checkout,
+    getOrders
 } = require('../controllers/apiController');
 const authenticated = require('../middleware/authenticated');
 
@@ -41,5 +42,6 @@ router.post('/cart/remove', authenticated, removeFromCart);
 router.delete('/cart/clear/:userId', authenticated, clearCart);
 router.post('/cart/update', authenticated, updateCartItem);
 router.post('/cart/checkout', authenticated, checkout);
+router.get('/orders', authenticated, getOrders);
 
 module.exports = router;

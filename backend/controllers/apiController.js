@@ -324,9 +324,7 @@ exports.clearCart = async (req, res) => {
 
 
 exports.checkout = async (req, res) => {
-  console.log("Checkout request received:", req.body);
   const userId = req.user._id;
-  console.log("Authenticated userId for checkout:", userId);
   if (!userId) {
     return res.status(400).json({ message: "User ID is required for checkout." });
   }
@@ -401,6 +399,29 @@ exports.checkout = async (req, res) => {
     console.error("Checkout error:", err);
     if (res.headersSent) return;
     res.status(500).json({ message: "Checkout failed due to a server error. Please try again later." });
+  }
+};
+
+
+exports.getOrders = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required to fetch orders." });
+    }
+
+    const orders = await Order.find({ userId }).sort({ createdAt: -1 });
+
+    if (!orders || orders.length === 0) {
+      return res.status(404).json({ message: "No orders found for this user." });
+    }
+
+    return res.status(200).json(orders);
+
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.status(500).json({ message: "Failed to fetch orders." });
   }
 };
 

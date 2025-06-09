@@ -53,11 +53,11 @@ const LoginSignup = () => {
       }
     } else {
       result = await login(form.email, form.password);
-      if (result.success) {
-        setMessage(result.message);
-        setMessageType('success');
-        navigate('/');
-      } else {
+     if (result.success) {
+    setMessage(result.message);
+    setMessageType('success');
+    window.location.href = '/';
+} else {
         setMessage(result.message);
         setMessageType('error');
       }

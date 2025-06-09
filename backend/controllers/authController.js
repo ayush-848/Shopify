@@ -116,12 +116,12 @@ const login = async (req, res) => {
       { expiresIn: "24h" }
     );
 
-    res.cookie("jwtToken", jwtToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "None",
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+    res.cookie('jwtToken', jwtToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production', 
+          sameSite: 'None',
+          maxAge: 24 * 60 * 60 * 1000, // 1 day in milliseconds
+        });
 
     return res.status(200).json({
       success: true,

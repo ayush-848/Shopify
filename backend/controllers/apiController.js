@@ -56,6 +56,7 @@ exports.getAllProducts = async (req, res) => {
 
 
 exports.addCustomer = async (req, res) => {
+  console.log("Adding customer:", req.body);
   const { cname } = req.body;
 
   if (!cname) {
@@ -323,8 +324,9 @@ exports.clearCart = async (req, res) => {
 
 
 exports.checkout = async (req, res) => {
-  const { userId } = req.body;
-
+  console.log("Checkout request received:", req.body);
+  const userId = req.user._id;
+  console.log("Authenticated userId for checkout:", userId);
   if (!userId) {
     return res.status(400).json({ message: "User ID is required for checkout." });
   }
@@ -355,7 +357,8 @@ exports.checkout = async (req, res) => {
 
       if (!quantityDoc || quantityDoc.quantity < item.quantity) {
         return res.status(400).json({
-          message: `Insufficient stock for product: ${product.pname}. Available: ${quantityDoc ? quantityDoc.quantity : 0}, Requested: ${item.quantity}`
+          message: `Insufficient stock for product: ${product.pname}. Available: ${quantityDoc ? quantityDoc.quantity : 0}, Requested: ${item.quantity}`,
+          displayMessage: `Insufficient stock for product: ${product.pname}.`
         });
       }
     }
@@ -405,7 +408,8 @@ exports.checkout = async (req, res) => {
 exports.updateCartItem = async (req, res) => {
   try {
     console.log("Updating cart item:", req.body);
-    const { userId, productId, quantity } = req.body;
+    const {  productId, quantity } = req.body;
+    const userId = req.user._id;
     if (quantity < 1) {
       await Cart.updateOne(
         { userId },

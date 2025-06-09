@@ -2,9 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import Navbar from '../components/Navbar';
 import Products from '../components/Products';
 import UserApiServices from '../services/UserApiServices';
-import { Link } from 'react-router-dom';
-import { CartProvider } from '../context/CardContext';
-import { AuthContext } from '../context/AuthContext';
 
 
 
@@ -12,7 +9,6 @@ const ProductDisplay = () => {
     const [products, setProducts] = useState([]);
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(true);
-    const { logout } = useContext(AuthContext);
 
     useEffect(() => {
         const getProducts = async () => {
@@ -56,10 +52,8 @@ const ProductDisplay = () => {
     }, []);
 
     return (
-        // <CartProvider> now wraps the content that needs the cart state
-        <CartProvider>
             <div className="min-h-screen bg-gray-100">
-                <Navbar username="User" onLogout={logout} />
+                <Navbar />
                 <div className="max-w-5xl mx-auto pt-28 px-4">
                     <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Products</h2>
 
@@ -72,18 +66,8 @@ const ProductDisplay = () => {
                     ) : (
                         <Products products={products} />
                     )}
-
-                    <div className="mt-8 text-center">
-                        <Link
-                            to="/cart"
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
-                        >
-                            Go to Cart
-                        </Link>
-                    </div>
                 </div>
             </div>
-        </CartProvider>
     );
 };
 

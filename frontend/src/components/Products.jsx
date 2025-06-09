@@ -141,9 +141,6 @@ function Products({ products }) {
           })
         )
       );
-      
-      
-      // Navigate to cart page
       navigate("/cart");
     } catch (err) {
       alert("Failed to update cart.");

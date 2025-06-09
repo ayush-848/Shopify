@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CardContext";
 
-function Navbar({ username, onLogout }) {
+function Navbar({}) {
   const navigate = useNavigate();
   const { logout, user } = useAuth();
   const { cart } = useCart();
@@ -53,7 +53,7 @@ function Navbar({ username, onLogout }) {
           <History size={18} /> <span>History</span>
         </button>
         <button
-          onClick={onLogout}
+          onClick={logout}
           className="flex items-center gap-2 px-4 py-2 cursor-pointer text-red-700 hover:bg-red-50 rounded-lg transition font-medium focus:outline-none"
         >
           <LogOut size={16} />

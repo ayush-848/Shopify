@@ -33,7 +33,7 @@ function Home() {
   const [fetchedProductName, setFetchedProductName] = useState('');
   const [dashboardRefreshTrigger, setDashboardRefreshTrigger] = useState(0);
 
-  const { logout, user } = useAuth();
+  const { user } = useAuth();
 
   const ACCESS_DENIED_MESSAGE = "Unauthorized: This operation requires Administrator privileges.";
 
@@ -321,7 +321,7 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
-      <Navbar username={user?.username} onLogout={logout} />
+      <Navbar />
       <main className="flex flex-col items-center w-full flex-1 px-2 py-8 pt-24">
         <section className="w-full max-w-4xl mb-8">
           <Dashboard refreshTrigger={dashboardRefreshTrigger} />

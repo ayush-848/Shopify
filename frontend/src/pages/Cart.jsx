@@ -3,25 +3,52 @@ import { useCart } from "../context/CardContext";
 import Navbar from "../components/Navbar";
 import UserApiServices from "../services/UserApiServices";
 import { AuthContext } from "../context/AuthContext";
-import { Trash2 } from "lucide-react"; // Import delete icon
+import { Trash2 } from "lucide-react";
 
 function Cart() {
-  const { user } = useContext(AuthContext);
-  const { cart, setCart } = useCart();
+  const { user, logout, loading: userLoading } = useContext(AuthContext);
+  const { cart, setCart, fetchCart } = useCart(); // Added fetchCart
   const cartArray = Array.isArray(cart) ? cart : [];
 
   // Local state for editing quantities
   const [quantities, setQuantities] = useState({});
   const [updating, setUpdating] = useState(false);
 
+  // Fetch cart data when component mounts
   useEffect(() => {
+    if (user) {
+      fetchCart();
+    }
+  }, [user, fetchCart]);
+
+  // Initialize quantities when cart changes
+  useEffect(() => {
+    if (!user || !cartArray.length) return;
     setQuantities(
       cartArray.reduce((acc, item) => {
         acc[item.productId] = item.quantity;
         return acc;
       }, {})
     );
-  }, [cartArray]);
+  }, [cartArray, user]);
+
+  // Show loading while user data is loading
+  if (userLoading) {
+    return (
+      <div className="p-8 text-center text-lg font-semibold">
+        Loading user info...
+      </div>
+    );
+  }
+
+  // Show login prompt if no user
+  if (!user) {
+    return (
+      <div className="p-8 text-center text-lg font-semibold">
+        Please log in to view your cart.
+      </div>
+    );
+  }
 
   const handleChange = (productId, delta) => {
     setQuantities((prev) => ({
@@ -81,21 +108,21 @@ function Cart() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar onLogout={logout} />
       <div className="mb-20">
         <div style={{ padding: 32 }}>
           <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
-          {cartArray.length === 0 ? (
+          {cartArray?.length === 0 ? (
             <div className="text-gray-500">Your cart is empty.</div>
           ) : (
             <>
               <ul>
-                {cartArray.map((item) => (
+                {cartArray?.map((item) => (
                   <li
                     key={item.productId}
                     className="mb-4 flex items-center gap-4"
                   >
-                    <span className="font-semibold">Product:</span> {item.name} && {item.productId} 
+                    <span className="font-semibold">Product:</span> {item.name}
                     <span className="font-semibold ml-4">Quantity:</span>
                     <button
                       onClick={() => handleChange(item.productId, -1)}
@@ -119,7 +146,6 @@ function Cart() {
                     >
                       Confirm
                     </button>
-                    {/* Delete button with icon */}
                     <button
                       onClick={() => handleDelete(item.productId)}
                       disabled={updating}

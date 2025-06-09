@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { ShoppingCart, Minus, Plus } from "lucide-react";
 import UserApiServices from "../services/UserApiServices";
 import { AuthContext } from "../context/AuthContext";
@@ -79,9 +80,11 @@ function ProductCard({ product, showQty, qty, onAddToCart, onIncrement, onDecrem
 function Products({ products }) {
   const { user } = useContext(AuthContext);
   const USER_ID = user ? user._id : null;
+  const navigate = useNavigate();
 
   const [selection, setSelection] = useState({});
-  const { cart, setCart } = useCart();
+  const { cart, setCart, fetchCart } = useCart(); // Added fetchCart here
+  
   // Handlers for each card
   const handleAddToCart = (id) => {
     setSelection(prev => ({
@@ -138,7 +141,10 @@ function Products({ products }) {
           })
         )
       );
-      alert("Cart updated!");
+      
+      
+      // Navigate to cart page
+      navigate("/cart");
     } catch (err) {
       alert("Failed to update cart.");
       console.error(err);

@@ -21,24 +21,25 @@ const {
   checkout
 
 } = require('../controllers/apiController');
+const authMiddleware = require('../middleware/authMiddleware');
 
 router.post('/getcname', getcname);
 router.post('/getpname', getpname);
 router.get('/cid', getAllCustomers);
 router.get('/pid', getAllProducts);
-router.get('/customercount', getCustomerCount);
-router.get('/productcount', getProductCount);
-router.post('/addcustomer', addCustomer);
-router.post('/addproduct', addProduct);
-router.put('/updatecustomer', updateCustomer);
-router.put('/updateproduct', updateProduct);
-router.get('/quantity/:pid', getQuantity);
-router.put('/quantity/:pid', updateQuantity);
-router.post('/cart/add', addToCart);
-router.get('/cart/:userId', getCart);
-router.post('/cart/remove', removeFromCart);
-router.delete('/cart/clear/:userId', clearCart);
-router.put('/cart/update', updateCartItem);
-router.post('/checkout', checkout);
+router.get('/customercount',authMiddleware, getCustomerCount);
+router.get('/productcount',authMiddleware, getProductCount);
+router.post('/addcustomer',authMiddleware, addCustomer);
+router.post('/addproduct',authMiddleware, addProduct);
+router.put('/updatecustomer',authMiddleware, updateCustomer);
+router.put('/updateproduct',authMiddleware, updateProduct);
+router.get('/quantity/:pid',authMiddleware, getQuantity);
+router.put('/quantity/:pid',authMiddleware, updateQuantity);
+router.post('/cart/add',authMiddleware, addToCart);
+router.get('/cart/:userId',authMiddleware, getCart);
+router.post('/cart/remove',authMiddleware, removeFromCart);
+router.delete('/cart/clear/:userId',authMiddleware, clearCart);
+router.put('/cart/update',authMiddleware, updateCartItem);
+router.post('/checkout',authMiddleware, checkout);
 
 module.exports = router;

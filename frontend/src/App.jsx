@@ -1,11 +1,10 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Userpath from './pages/LoginSignup';
-import Home from './pages/Home';
-import ProductDisplay from './pages/ProductDisplay';
-import PrivateRoute from './components/PrivateRoute';
-import Cart from './pages/Cart';
-
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Userpath from "./pages/LoginSignup";
+import Home from "./pages/Home";
+import ProductDisplay from "./pages/ProductDisplay";
+import PrivateRoute from "./components/PrivateRoute";
+import Cart from "./pages/Cart";
 
 const App = () => {
   return (
